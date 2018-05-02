@@ -1,14 +1,16 @@
 package com.trans.dbservice.entities;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,19 +20,27 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Driver {
+public class Event {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 	
-	private String name;
+	@ManyToOne
+    @JoinColumn(name="driver_id")
+	private Driver driver;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "vehicle_id")
+	@ManyToOne
+    @JoinColumn(name="vehicle_id")
 	private Vehicle vehicle;
 	
-	@OneToMany(mappedBy = "driver")
-	private List<Event> events;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "location_id")
+	private Location location;
+	
+	private String description;
 	
 }

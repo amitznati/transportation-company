@@ -1,13 +1,8 @@
 package com.trans.dbservice.entities;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -18,19 +13,15 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Driver {
+public class Location {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 	
-	private String name;
+	private String city;
+	private String street;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "vehicle_id")
-	private Vehicle vehicle;
-	
-	@OneToMany(mappedBy = "driver")
-	private List<Event> events;
-	
+	@OneToOne(mappedBy = "location")
+	private Event event;
 }

@@ -35,4 +35,7 @@ public class Driver {
 	
 	@OneToMany(mappedBy = "otherDriver")
 	private List<Accident> involveInAccidents;
+	
+	@OneToMany(mappedBy = "drivers")
+	private List<Training> registeredToTrainings;
 }

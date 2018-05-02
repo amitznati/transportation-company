@@ -6,5 +6,11 @@ zuul:
       url: http://localhost:8305
     maneger-service:
       path: /maneger-service/**
-      url: http://localhost:8806
+      url: http://localhost:8306
+    call-center-service:
+      path: /call-center/**
+      url: http://localhost:8307
+    hr-service:
+      path: /hr-center/**
+      url: http://localhost:8308
       

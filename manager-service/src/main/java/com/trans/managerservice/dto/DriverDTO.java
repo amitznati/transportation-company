@@ -1,6 +1,8 @@
 package com.trans.managerservice.dto;
 
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,6 @@ import lombok.RequiredArgsConstructor;
 public class DriverDTO {
 	private Long id;
 	private String name;
-	private VehicleTDO vehicle;
+	private List<VehicleTDO> vehicles;
 	
 }

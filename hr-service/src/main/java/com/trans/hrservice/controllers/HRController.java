@@ -17,11 +17,10 @@ public class HRController {
 	@GetMapping("/drivers/add")
 	String addDriver(){
 		log.info("HF Service register Event");
-		restTemplate.getForEntity("http://quality-verifier/verify-beer-quality", String.class);
 		return "ok";
 	}
 	
-	@GetMapping("/trainings/add")
+	@GetMapping("/managers/add")
 	String addTraining(){
 		log.info("HF Service register Event");
 		restTemplate.getForEntity("http://quality-verifier/verify-beer-quality", String.class);

@@ -2,7 +2,6 @@ package com.trans.callcenterservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +14,7 @@ public class CallCenterController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	@PostMapping("/register-event")
+	@GetMapping("/events/add")
 	String registerEvent(){
 		log.info("HF Service register Event");
 		restTemplate.getForEntity("http://quality-verifier/verify-beer-quality", String.class);

@@ -3,20 +3,23 @@ package com.trans.dbservice.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import com.trans.dbservice.entities.enums.AccidentCause;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
-public class TrafficTicket extends Event {
+public class Employee {
 
-	private AccidentCause cause;
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	private String name;
 }

@@ -4,31 +4,26 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Driver {
+@EqualsAndHashCode(callSuper=false)
+public class Driver extends Employee{
 
-	@Id
-	@GeneratedValue
-	private Long id;
 	
-	private String name;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "vehicle_id")
-	private Vehicle vehicle;
+	@OneToMany(mappedBy = "driver")
+	private List<Vehicle> vehicles;
 	
 	@OneToMany(mappedBy = "driver")
 	private List<Event> events;
@@ -36,6 +31,6 @@ public class Driver {
 	@OneToMany(mappedBy = "otherDriver")
 	private List<Accident> involveInAccidents;
 	
-	@OneToMany(mappedBy = "drivers")
+	@ManyToMany(mappedBy = "drivers")
 	private List<Training> registeredToTrainings;
 }

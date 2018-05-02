@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor

@@ -29,17 +29,19 @@ public class Training {
 	
 	private String description;
 	
+	private String titel;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDateTime;
 	
 	private int maxNumOfParticipants;
 	
 	@ManyToMany(cascade = CascadeType.ALL )
-    @JoinTable(
-        name = "Driver_Training", 
-        joinColumns = { @JoinColumn(name = "driver_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "training_id") }
-    )
+//    @JoinTable(
+//        name = "Driver_Training", 
+//        joinColumns = { @JoinColumn(name = "driver_id") }, 
+//        inverseJoinColumns = { @JoinColumn(name = "training_id") }
+//    )
 	private List<Driver> drivers;
 	
 }

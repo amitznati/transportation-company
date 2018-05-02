@@ -1,0 +1,10 @@
+zuul:
+  prefix: /api
+  routes:
+    db-service: 
+      path: /db-service/**
+      url: http://localhost:8305
+    maneger-service:
+      path: /maneger-service/**
+      url: http://localhost:8806
+      

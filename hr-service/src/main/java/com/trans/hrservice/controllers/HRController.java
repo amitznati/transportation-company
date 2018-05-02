@@ -2,6 +2,7 @@ package com.trans.hrservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,15 +15,16 @@ public class HRController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	@GetMapping("/drivers/add")
+	@PostMapping("/drivers/add")
 	String addDriver(){
-		log.info("HF Service register Event");
+		log.info("HF adding new driver...");
 		return "ok";
 	}
 	
-	@GetMapping("/managers/add")
+	
+	@PostMapping("/managers/add")
 	String addTraining(){
-		log.info("HF Service register Event");
+		log.info("HR adding new maneger...");
 		restTemplate.getForEntity("http://quality-verifier/verify-beer-quality", String.class);
 		return "ok";
 	}

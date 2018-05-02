@@ -1,9 +1,6 @@
 package com.trans.dbservice.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 import com.trans.dbservice.entities.enums.AccidentCause;
 
 import lombok.AllArgsConstructor;

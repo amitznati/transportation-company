@@ -29,5 +29,8 @@ public class Vehicle {
 	
 	@OneToMany(mappedBy = "vehicle")
 	private List<Event> events;
+	
+	@OneToMany(mappedBy = "otherVehicle")
+	private List<Accident> involveInAccidents;
 
 }

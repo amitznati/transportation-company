@@ -9,3 +9,5 @@ import com.trans.dbservice.entities.Driver;
 public interface DriverRepository extends JpaRepository<Driver, Long> {
 
 }
+
+

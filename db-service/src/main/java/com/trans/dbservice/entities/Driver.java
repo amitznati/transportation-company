@@ -33,4 +33,6 @@ public class Driver {
 	@OneToMany(mappedBy = "driver")
 	private List<Event> events;
 	
+	@OneToMany(mappedBy = "otherDriver")
+	private List<Accident> involveInAccidents;
 }

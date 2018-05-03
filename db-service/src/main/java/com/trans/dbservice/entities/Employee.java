@@ -18,6 +18,9 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class Employee {
 
+	public Employee(String name) {
+		this.name = name;
+	}
 	@Id
 	@GeneratedValue
 	private Long id;

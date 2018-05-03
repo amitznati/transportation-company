@@ -1,6 +1,9 @@
 package com.trans.dbservice.entities;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.trans.dbservice.entities.enums.AccidentCause;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
+@DiscriminatorValue("trafficticket")
+@JsonTypeName("trafficticket")
 public class TrafficTicket extends Event {
 
 	private AccidentCause cause;

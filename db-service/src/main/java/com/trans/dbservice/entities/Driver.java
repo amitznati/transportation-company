@@ -6,26 +6,25 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Data
+//@Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class Driver extends Employee {
 
+	public Driver(String name) {
+		super(name);
+	}
 	
 	@OneToMany(mappedBy = "driver")
 	private List<Vehicle> vehicles;
 	
 	@OneToMany(mappedBy = "driver")
 	private List<Event> events;
-	
-	@OneToMany(mappedBy = "otherDriver")
-	private List<Accident> involveInAccidents;
 	
 	@ManyToMany(mappedBy = "drivers")
 	private List<Training> registeredToTrainings;

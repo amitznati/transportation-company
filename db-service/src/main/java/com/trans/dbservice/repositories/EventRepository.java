@@ -1,11 +1,10 @@
 package com.trans.dbservice.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import javax.transaction.Transactional;
 
 import com.trans.dbservice.entities.Event;
 
-@RepositoryRestResource(collectionResourceRel = "events", path = "events")
-public interface EventRepository extends JpaRepository<Event, Long> {
+@Transactional
+public interface EventRepository extends EventBaseRepository<Event> {
 
 }

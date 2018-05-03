@@ -4,8 +4,8 @@ zuul:
     db-service: 
       path: /db-service/**
       url: http://localhost:8305
-    maneger-service:
-      path: /maneger-service/**
+    manager-service:
+      path: /manager-service/**
       url: http://localhost:8306
     call-center-service:
       path: /call-center/**

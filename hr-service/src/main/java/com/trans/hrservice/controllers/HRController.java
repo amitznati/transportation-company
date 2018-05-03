@@ -24,7 +24,7 @@ public class HRController {
 	
 	@PostMapping("/managers/add")
 	String addTraining(){
-		log.info("HR adding new maneger...");
+		log.info("HR adding new manager...");
 		restTemplate.getForEntity("http://quality-verifier/verify-beer-quality", String.class);
 		return "ok";
 	}

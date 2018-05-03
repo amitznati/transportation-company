@@ -2,28 +2,29 @@ package com.trans.dbservice.entities;
 
 
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
+@DiscriminatorValue("accidents")
+@JsonTypeName("accidents")
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class Accident extends Event {
 
-	@ManyToOne
-	@JoinColumn(name = "other_driver_id")
-	private Driver otherDriver;
-	
-	@ManyToOne
-	@JoinColumn(name = "other_vehicle_id")
-	private Vehicle otherVehicle;
+	private String otherDriverName;
+	private String otherDriverPhone;
+	private String otherDriverLicense;
+	private String otherVehicleLicense;
 	
 	
 }

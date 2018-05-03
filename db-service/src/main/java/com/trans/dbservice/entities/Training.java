@@ -1,5 +1,6 @@
 package com.trans.dbservice.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,8 +39,8 @@ public class Training {
 	@Column(length = 15)
 	private String title;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date startDateTime;
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime startDateTime;
 	
 	@ManyToOne
     @JoinColumn(name="mamanger_id")

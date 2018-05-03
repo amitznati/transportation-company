@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.trans.dbservice.entities.enums.AccidentCause;
+import com.trans.dbservice.entities.enums.TrafficTicketCause;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +20,5 @@ import lombok.RequiredArgsConstructor;
 @JsonTypeName("trafficticket")
 public class TrafficTicket extends Event {
 
-	private AccidentCause cause;
+	private TrafficTicketCause cause;
 }

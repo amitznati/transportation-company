@@ -1,5 +1,6 @@
 package com.trans.dbservice.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -42,8 +45,8 @@ public class Event {
     @JoinColumn(name="vehicle_id")
 	private Vehicle vehicle;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdAt;
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime createdAt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "location_id")

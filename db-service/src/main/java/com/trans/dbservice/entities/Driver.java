@@ -1,13 +1,19 @@
 package com.trans.dbservice.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 //@Data
@@ -24,8 +30,11 @@ public class Driver extends Employee {
 	private List<Vehicle> vehicles;
 	
 	@OneToMany(mappedBy = "driver")
+	@Setter
 	private List<Event> events;
 	
 	@ManyToMany(mappedBy = "drivers")
 	private List<Training> registeredToTrainings;
+	
+	
 }

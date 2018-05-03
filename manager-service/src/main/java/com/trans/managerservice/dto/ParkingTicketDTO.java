@@ -2,13 +2,14 @@ package com.trans.managerservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class VehicleTDO {
+@EqualsAndHashCode(callSuper=false)
+public class ParkingTicketDTO extends EventDTO {
 
-	private String id;
-	private String type;
+	private Double amountOfFine;
 }

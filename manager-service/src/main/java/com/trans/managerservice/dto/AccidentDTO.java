@@ -1,30 +1,19 @@
-package com.trans.dbservice.entities;
-
-
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-
-import com.fasterxml.jackson.annotation.JsonTypeName;
+package com.trans.managerservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
-@Entity
-@DiscriminatorValue("AS")
-@JsonTypeName("accidents")
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class Accident extends Event {
-
+public class AccidentDTO extends EventDTO {
+	
 	private String otherDriverName;
 	private String otherDriverPhone;
 	private String otherDriverLicense;
 	private String otherVehicleLicense;
-	
-	
+
 }

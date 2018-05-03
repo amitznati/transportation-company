@@ -1,8 +1,5 @@
 package com.trans.managerservice.dto;
 
-
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class DriverDTO {
+public class Location {
+
 	private Long id;
-	private String name;
-	private List<VehicleDTO> vehicles;
-	private List<EventDTO> events;
-	private List<TrainingDTO> registeredToTrainings;
-	
+	private String city;
+	private String street;
+	private EventDTO event;
+
 }

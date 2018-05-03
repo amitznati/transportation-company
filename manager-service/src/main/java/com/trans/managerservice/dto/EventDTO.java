@@ -1,7 +1,6 @@
 package com.trans.managerservice.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,15 +11,15 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class TrainingDTO {
+public class EventDTO {
 
 	private Long id;
-	private String description;
-	private String title;
-
+	private String type;
+	private DriverDTO driver;
+	private VehicleDTO vehicle;
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-	private Date startDateTime;
+	private Date createdAt;
+	private Location location;
 	
-	private int maxNumOfParticipants;
-	private List<DriverDTO> drivers;
+	private String description;
 }

@@ -11,6 +11,7 @@ class Config{
 	@LoadBalanced
 	public RestTemplate restTemplate(){
 		return new RestTemplate();
+
 	}
 
 }

@@ -13,3 +13,8 @@ server:
 spring:
   application:
     name: db-service
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    
+  

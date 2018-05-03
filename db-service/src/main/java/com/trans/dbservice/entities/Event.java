@@ -13,9 +13,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -46,7 +43,7 @@ public class Event {
 	private Vehicle vehicle;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-	private LocalDateTime createdAt;
+	private Date createdAt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "location_id")

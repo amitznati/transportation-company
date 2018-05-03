@@ -1,7 +1,9 @@
 package com.trans.dbservice;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
@@ -15,6 +17,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+import org.springframework.stereotype.Component;
 
 import com.trans.dbservice.entities.Accident;
 import com.trans.dbservice.entities.Driver;
@@ -61,8 +66,8 @@ public class DbServiceApplication {
 		};
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void addData() {
+		
 		dr.deleteAll();
 		Arrays.asList("Amit Znati", "sdfsd sdff", "werr wer")
 		.forEach(x -> dr.save(new Driver(x)));
@@ -87,7 +92,7 @@ public class DbServiceApplication {
 			TrafficTicket tt = new TrafficTicket(TrafficTicketCause.RED_LIGHT);
 			Arrays.asList(ac,pt,tt)
 			.forEach(e -> {
-				e.setCreatedAt(LocalDateTime.of(2018, random.nextInt(12)+1, random.nextInt(28)+1, random.nextInt(24), random.nextInt(60)));
+				e.setCreatedAt(getRandomDate());
 				e.setDescription("Description" + random.nextInt(100));
 				e.setDriver(dr.findOne((long)1 + random.nextInt(dr.findAll().size())));
 				e.setLocation(new Location(null, "ciy", "street"+random.nextInt(100),null));
@@ -96,8 +101,8 @@ public class DbServiceApplication {
 			
 			Training t = new Training(null, 
 					"desc", 
-					"title"+1, 
-					LocalDateTime.of(2018, random.nextInt(12) +1, random.nextInt(28) +1, random.nextInt(24), random.nextInt(60)), 
+					"title"+random.nextInt(100), 
+					getRandomDate(), 
 					mr.findOne(random.nextLong() + 1), random.nextInt(100)+3, 
 					null);
 			
@@ -120,8 +125,41 @@ public class DbServiceApplication {
 		
 		
 	}
+	
+	private Date getRandomDate() {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Date date = null;
+		Random random = new Random();
+		String dateInString = "2018-"+random.nextInt(12)+1+"-"+random.nextInt(28)+1+"T"+random.nextInt(24)+":"+random.nextInt(60)+":00";
+		
+		try {
+			date = formatter.parse(dateInString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DbServiceApplication.class, args);
 	}
+	
+	@Component
+	public class ExposeEntityIdRestMvcConfiguration extends RepositoryRestConfigurerAdapter {
+
+	  @Override
+	  public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+	    config.exposeIdsFor(Training.class);
+	    config.exposeIdsFor(Accident.class);
+	    config.exposeIdsFor(Driver.class);
+	    config.exposeIdsFor(Location.class);
+	    config.exposeIdsFor(Manager.class);
+	    config.exposeIdsFor(ParkingTicket.class);
+	    config.exposeIdsFor(TrafficTicket.class);
+	    config.exposeIdsFor(Vehicle.class);
+	  }
+	}
 }
+
+

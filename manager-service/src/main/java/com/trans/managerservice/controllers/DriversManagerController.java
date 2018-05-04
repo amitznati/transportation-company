@@ -1,6 +1,5 @@
 package com.trans.managerservice.controllers;
 
-import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +44,8 @@ public class DriversManagerController {
 									.collect(Collectors.toList());
 
 	}
+	
+	
 
 	@PostMapping("/trainings")
 	public TrainingDTO addTraining(@RequestBody TrainingDTO training){
@@ -71,7 +72,6 @@ public class DriversManagerController {
 			retVal = restTemplate.exchange(dbUrl + "trainings", 
 					HttpMethod.GET, null, 
 					new ParameterizedTypeReference<Resources<TrainingDTO>>() {})
-					
 					.getBody()
 					.getContent()
 					.stream()
@@ -98,7 +98,7 @@ public class DriversManagerController {
 				.getBody().getContent().stream()
 				.filter(e -> e.getCreatedAt().before(to) && e.getCreatedAt().after(from))
 				.map(e -> {
-					DriverDTO driver = getDriverByID(e.getId().toString());
+					DriverDTO driver = getDriverByTrainingID(e.getId().toString());
 					log.info("Driver is: " +driver.toString());
 					int points = calcPointsByType(e.getType());
 					log.info("points are : "+points);
@@ -113,13 +113,13 @@ public class DriversManagerController {
 				new ParameterizedTypeReference<Resources<TrainingDTO>>() {})
 				.getBody().getContent().stream()
 				.filter(t -> t.getStartDateTime().before(to) && t.getStartDateTime().after(from))
-				.map(e -> {
-					DriverDTO driver = getDriverByID(e.getId().toString());
+				.map(t -> {
+					DriverDTO driver = getDriverByTrainingID(t.getId().toString());
 					log.info("Driver is: " +driver.toString());
 					if(map.get(driver) == null)
 						map.put(driver, 0);
 					map.put(driver, map.get(driver) + 100);
-					return e;
+					return t;
 				})
 				.collect(Collectors.toList());
 		return map;
@@ -144,7 +144,7 @@ public class DriversManagerController {
 		return points*100;
 	}
 	
-	private DriverDTO getDriverByID(String id) {
+	private DriverDTO getDriverByTrainingID(String id) {
 		return restTemplate.getForObject(dbUrl + "events/" + id+"/driver", DriverDTO.class);
 	}
 }

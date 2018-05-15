@@ -13,6 +13,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -37,6 +39,9 @@ public class Event {
 	@ManyToOne
     @JoinColumn(name="driver_id")
 	private Driver driver;
+	
+	@Transient
+	public Driver getDriver(){return this.driver;}
 	
 	@ManyToOne
     @JoinColumn(name="vehicle_id")

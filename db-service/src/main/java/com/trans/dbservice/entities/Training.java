@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -43,12 +44,10 @@ public class Training {
 	
 	private int maxNumOfParticipants;
 	
-	@ManyToMany(cascade = CascadeType.ALL )
-//    @JoinTable(
-//        name = "Driver_Training", 
-//        joinColumns = { @JoinColumn(name = "driver_id") }, 
-//        inverseJoinColumns = { @JoinColumn(name = "training_id") }
-//    )
+	@ManyToMany(mappedBy = "trainings")
 	private List<Driver> drivers;
+	
+	@Transient
+	public List<Driver> getDrivers(){return this.drivers;}
 	
 }

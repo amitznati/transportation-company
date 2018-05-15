@@ -104,9 +104,12 @@ public class DbServiceApplication {
 					"title"+random.nextInt(100), 
 					getRandomDate(), 
 					mr.findOne(random.nextLong() + 1), random.nextInt(100)+3, 
-					null);
+					dr.findAll());
 			
 			tr.save(t);
+			Driver d = dr.findOne(Long.valueOf(i+1));
+			d.setTrainings(tr.findAll());
+			dr.save(d);
 		}
 		
 		dr.findAll().stream().filter(d -> d.getId() % 2 == 1)

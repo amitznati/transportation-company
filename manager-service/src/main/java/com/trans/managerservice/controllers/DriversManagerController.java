@@ -98,7 +98,7 @@ public class DriversManagerController {
 				.getBody().getContent().stream()
 				.filter(e -> e.getCreatedAt().before(to) && e.getCreatedAt().after(from))
 				.map(e -> {
-					DriverDTO driver = getDriverByTrainingID(e.getId().toString());
+					DriverDTO driver = e.getDriver();
 					log.info("Driver is: " +driver.toString());
 					int points = calcPointsByType(e.getType());
 					log.info("points are : "+points);
@@ -114,11 +114,12 @@ public class DriversManagerController {
 				.getBody().getContent().stream()
 				.filter(t -> t.getStartDateTime().before(to) && t.getStartDateTime().after(from))
 				.map(t -> {
-					DriverDTO driver = getDriverByTrainingID(t.getId().toString());
-					log.info("Driver is: " +driver.toString());
-					if(map.get(driver) == null)
-						map.put(driver, 0);
-					map.put(driver, map.get(driver) + 100);
+					t.getDrivers().forEach(driver -> {
+						log.info("Driver is: " +driver.toString());
+						if(map.get(driver) == null)
+							map.put(driver, 0);
+						map.put(driver, map.get(driver) + 100);
+					});
 					return t;
 				})
 				.collect(Collectors.toList());
@@ -144,7 +145,4 @@ public class DriversManagerController {
 		return points*100;
 	}
 	
-	private DriverDTO getDriverByTrainingID(String id) {
-		return restTemplate.getForObject(dbUrl + "events/" + id+"/driver", DriverDTO.class);
-	}
 }

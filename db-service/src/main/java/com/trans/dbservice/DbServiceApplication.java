@@ -133,7 +133,7 @@ public class DbServiceApplication {
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Date date = null;
 		Random random = new Random();
-		String dateInString = "2018-"+random.nextInt(12)+1+"-"+random.nextInt(28)+1+"T"+random.nextInt(24)+":"+random.nextInt(60)+":00";
+		String dateInString = "2018-"+(random.nextInt(12)+1)+"-"+(random.nextInt(28)+1)+"T"+random.nextInt(24)+":"+random.nextInt(60)+":00";
 		
 		try {
 			date = formatter.parse(dateInString);

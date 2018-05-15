@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@DiscriminatorValue("AS")
+@DiscriminatorValue("AC")
 @JsonTypeName("accidents")
 @Data
 @RequiredArgsConstructor

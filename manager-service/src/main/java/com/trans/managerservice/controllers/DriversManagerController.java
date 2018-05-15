@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.trans.managerservice.dto.DriverDTO;
-import com.trans.managerservice.dto.EventDTO;
-import com.trans.managerservice.dto.TrainingDTO;
+import com.trans.managerservice.dto.Driver;
+import com.trans.managerservice.dto.Event;
+import com.trans.managerservice.dto.Training;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,12 +35,12 @@ public class DriversManagerController {
 	public List<String> getDriversNames(){
 		return restTemplate.exchange(dbUrl + "drivers/", 
 									HttpMethod.GET, null, 
-									new ParameterizedTypeReference<Resources<DriverDTO>>() {})
+									new ParameterizedTypeReference<Resources<Driver>>() {})
 									
 									.getBody()
 									.getContent()
 									.stream()
-									.map(DriverDTO::getName)
+									.map(Driver::getName)
 									.collect(Collectors.toList());
 
 	}
@@ -48,12 +48,12 @@ public class DriversManagerController {
 	
 
 	@PostMapping("/trainings")
-	public TrainingDTO addTraining(@RequestBody TrainingDTO training){
+	public Training addTraining(@RequestBody Training training){
 		log.info("Adding Training");
-		TrainingDTO retVal = null;
+		Training retVal = null;
 		try {
-			HttpEntity<TrainingDTO> request = new HttpEntity<>(training);
-			retVal = restTemplate.postForObject(dbUrl + "trainings/", request, TrainingDTO.class);
+			HttpEntity<Training> request = new HttpEntity<>(training);
+			retVal = restTemplate.postForObject(dbUrl + "trainings/", request, Training.class);
 			log.info("Training added successfully with id, "+retVal.getId().toString());
 		}catch (Exception e) {
 			log.error("Failed to add training...");
@@ -65,13 +65,13 @@ public class DriversManagerController {
 	}
 	
 	@GetMapping("/trainings")
-	public List<TrainingDTO> getTraining(){
+	public List<Training> getTraining(){
 		log.info("Adding Training");
-		List<TrainingDTO> retVal = null;
+		List<Training> retVal = null;
 		try {
 			retVal = restTemplate.exchange(dbUrl + "trainings", 
 					HttpMethod.GET, null, 
-					new ParameterizedTypeReference<Resources<TrainingDTO>>() {})
+					new ParameterizedTypeReference<Resources<Training>>() {})
 					.getBody()
 					.getContent()
 					.stream()
@@ -87,18 +87,18 @@ public class DriversManagerController {
 	}
 
 	@GetMapping("/calculate-bonus")
-	public HashMap<DriverDTO, Integer> calcBonus(
+	public HashMap<Driver, Integer> calcBonus(
 			@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") Date from, 
 			@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") Date to){
 		log.info("Calculation Bonus");
-		HashMap<DriverDTO,Integer> map = new HashMap<>();
+		HashMap<Driver,Integer> map = new HashMap<>();
 		restTemplate.exchange(dbUrl + "events", 
 				HttpMethod.GET, null, 
-				new ParameterizedTypeReference<Resources<EventDTO>>() {})
+				new ParameterizedTypeReference<Resources<Event>>() {})
 				.getBody().getContent().stream()
 				.filter(e -> e.getCreatedAt().before(to) && e.getCreatedAt().after(from))
 				.map(e -> {
-					DriverDTO driver = e.getDriver();
+					Driver driver = e.getDriver();
 					log.info("Driver is: " +driver.toString());
 					int points = calcPointsByType(e.getType());
 					log.info("points are : "+points);
@@ -110,7 +110,7 @@ public class DriversManagerController {
 				.collect(Collectors.toList());
 		restTemplate.exchange(dbUrl + "trainings", 
 				HttpMethod.GET, null, 
-				new ParameterizedTypeReference<Resources<TrainingDTO>>() {})
+				new ParameterizedTypeReference<Resources<Training>>() {})
 				.getBody().getContent().stream()
 				.filter(t -> t.getStartDateTime().before(to) && t.getStartDateTime().after(from))
 				.map(t -> {

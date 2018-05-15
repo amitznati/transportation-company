@@ -11,15 +11,15 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class EventDTO {
+public class Event {
 
 	private Long id;
 	private String type;
-	private DriverDTO driver;
-	private VehicleDTO vehicle;
+	private Driver driver;
+	//private VehicleDTO vehicle;
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 	private Date createdAt;
-	private Location location;
+//	private Location location;
 	
 	private String description;
 }

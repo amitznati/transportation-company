@@ -3,12 +3,9 @@ package com.trans.dbservice;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -111,22 +108,6 @@ public class DbServiceApplication {
 			d.setTrainings(tr.findAll());
 			dr.save(d);
 		}
-		
-		dr.findAll().stream().filter(d -> d.getId() % 2 == 1)
-		.map(driver -> {
-			driver.setEvents(er.findAll().stream().filter(event -> event.getId() % 2 == 0).collect(Collectors.toList()));
-			return driver;
-		});
-		
-		dr.findAll().stream().filter(d -> d.getId() % 2 == 0)
-		.map(driver -> {
-			driver.setEvents(er.findAll().stream().filter(event -> event.getId() % 2 == 1).collect(Collectors.toList()));
-			return driver;
-		});
-		
-		
-		
-		
 	}
 	
 	private Date getRandomDate() {

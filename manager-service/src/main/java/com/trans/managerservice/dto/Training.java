@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class TrainingDTO {
+public class Training {
 
 	private Long id;
 	private String description;
@@ -22,5 +22,5 @@ public class TrainingDTO {
 	private Date startDateTime;
 	
 	private int maxNumOfParticipants;
-	private List<DriverDTO> drivers;
+	private List<Driver> drivers;
 }

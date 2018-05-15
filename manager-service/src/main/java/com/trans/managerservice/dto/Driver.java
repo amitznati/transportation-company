@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class DriverDTO {
+public class Driver {
 	private Long id;
 	private String name;
-	private List<VehicleDTO> vehicles;
-	private List<EventDTO> events;
-	private List<TrainingDTO> registeredToTrainings;
+	//private List<VehicleDTO> vehicles;
+	private List<Event> events;
+	private List<Training> registeredToTrainings;
 	
 }

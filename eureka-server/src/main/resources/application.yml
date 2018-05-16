@@ -11,7 +11,7 @@ zuul:
       path: /call-center/**
       url: http://localhost:8307
     hr-service:
-      path: /hr-center/**
+      path: /hr-service/**
       url: http://localhost:8308
     driver-service:
       path: /driver/**

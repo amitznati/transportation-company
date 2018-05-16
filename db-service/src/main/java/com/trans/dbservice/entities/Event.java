@@ -40,8 +40,8 @@ public class Event {
     @JoinColumn(name="driver_id")
 	private Driver driver;
 	
-	@Transient
-	public Driver getDriver(){return this.driver;}
+//	@Transient
+//	public Driver getDriver(){return this.driver;}
 	
 	@ManyToOne
     @JoinColumn(name="vehicle_id")

@@ -98,7 +98,7 @@ public class DriversManagerController {
 				.getBody().getContent().stream()
 				.filter(e -> e.getCreatedAt().before(to) && e.getCreatedAt().after(from))
 				.map(e -> {
-					Driver driver = e.getDriver();
+					Driver driver = restTemplate.getForObject(dbUrl+"events/"+e.getId()+"/driver", Driver.class);
 					log.info("Driver is: " +driver.toString());
 					int points = calcPointsByType(e.getType());
 					log.info("points are : "+points);

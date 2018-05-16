@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @DiscriminatorValue("PT")
-@JsonTypeName("parkinTicket")
+@JsonTypeName("parkingtickets")
 public class ParkingTicket extends Event {
 
 	private Double amountOfFine;

@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @DiscriminatorValue("TT")
-@JsonTypeName("trafficTicket")
+@JsonTypeName("traffictickets")
 public class TrafficTicket extends Event {
 
 	@Enumerated(EnumType.STRING)

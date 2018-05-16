@@ -13,4 +13,7 @@ zuul:
     hr-service:
       path: /hr-center/**
       url: http://localhost:8308
+    driver-service:
+      path: /driver/**
+      url: http://localhost:8309
       

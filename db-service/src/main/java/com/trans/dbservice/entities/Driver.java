@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -33,10 +34,12 @@ public class Driver extends Employee {
 	
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@Setter
+	@Getter
 	@JoinTable(
 	        name = "driver_training", 
-	        joinColumns = { @JoinColumn(name = "driver_id") }, 
-	        inverseJoinColumns = { @JoinColumn(name = "training_id") })
+	        joinColumns = @JoinColumn(name = "driver_id") , 
+	        inverseJoinColumns = @JoinColumn(name = "training_id",
+	        referencedColumnName = "id"))
 	private List<Training> trainings;
 	
 	

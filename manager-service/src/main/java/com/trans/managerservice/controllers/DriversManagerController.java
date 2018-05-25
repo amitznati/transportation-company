@@ -3,6 +3,8 @@ package com.trans.managerservice.controllers;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,34 +21,37 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DriversManagerController {
 	
+	@Autowired
+	ManagerService managerService;
+	
 	
 	@GetMapping("/drivers-names")
 	public List<String> getDriversNames(){
-		return ManagerService.getDriversNames();
+		return managerService.getDriversNames();
 	}
 
 	@PostMapping("/trainings")
 	public Training addTraining(@RequestBody Training training){
-		return ManagerService.addTraining(training);
+		return managerService.addTraining(training);
 	}
 	
 	@GetMapping("/trainings")
 	public List<Training> getTraining(){
-		return ManagerService.getTraining();
+		return managerService.getTraining();
 	}
 
 	@GetMapping("/calculate-bonus")
 	public HashMap<Driver, Integer> calcBonus(
 			@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") Date from, 
 			@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") Date to){
-		HashMap<Driver,Integer> map = ManagerService.calcBonus(from, to);
+		HashMap<Driver,Integer> map = managerService.calcBonus(from, to);
 		return map;
 	}
 	
 	@GetMapping("/events-breackdown")
 	public HashMap<String, String> getEventsBreackdown(){
 		log.info("Rest events-breackdown started...");
-		HashMap<String, String> map = ManagerService.getEventsBreackdown();
+		HashMap<String, String> map = managerService.getEventsBreackdown();
 		return map;
 	}
 }

@@ -26,11 +26,10 @@ public class ManagerService {
 	private static final String TRAFFICK_TICKET = "TT";
 	private static final String PARKING_TICKET = "PT";
 	@Autowired
-	static
 	RestTemplate restTemplate;
-	private static final String dbUrl ="http://db-service/";
+	private  final String dbUrl ="http://db-service/";
 	
-	public static HashMap<Driver,Integer> calcBonus(Date from, Date to){
+	public  HashMap<Driver,Integer> calcBonus(Date from, Date to){
 		log.info("Calculation Bonus");
 		HashMap<Driver,Integer> map = new HashMap<>();
 		restTemplate.exchange(dbUrl + "events", 
@@ -68,7 +67,7 @@ public class ManagerService {
 
 	}
 	
-	private static int calcPointsByType(String type) {
+	private  int calcPointsByType(String type) {
 		int points = 0;
 		switch (type) {
 		case ACCIDENT:
@@ -86,7 +85,7 @@ public class ManagerService {
 		return points*100;
 	}
 	
-	public static HashMap<String, String> getEventsBreackdown(){
+	public  HashMap<String, String> getEventsBreackdown(){
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		DecimalFormat df2 = new DecimalFormat(".##");
 		int sumAll = restTemplate.exchange(dbUrl + "events", 
@@ -109,7 +108,7 @@ public class ManagerService {
 		return retMap;
 	}
 	
-	public static List<Training> getTraining(){
+	public  List<Training> getTraining(){
 		log.info("Adding Training");
 		List<Training> retVal = null;
 		try {
@@ -130,7 +129,7 @@ public class ManagerService {
 
 	}
 	
-	public static Training addTraining(Training training){
+	public  Training addTraining(Training training){
 		log.info("Adding Training");
 		Training retVal = null;
 		try {
@@ -146,7 +145,7 @@ public class ManagerService {
 
 	}
 	
-	public static List<String> getDriversNames(){
+	public  List<String> getDriversNames(){
 		return restTemplate.exchange(dbUrl + "drivers/", 
 									HttpMethod.GET, null, 
 									new ParameterizedTypeReference<Resources<Driver>>() {})

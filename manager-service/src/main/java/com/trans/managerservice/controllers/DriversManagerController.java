@@ -49,9 +49,20 @@ public class DriversManagerController {
 	}
 	
 	@GetMapping("/events-breackdown")
-	public HashMap<String, String> getEventsBreackdown(){
+	public HashMap<String, Double> getEventsBreackdown(
+			@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") Date from, 
+			@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") Date to){
 		log.info("Rest events-breackdown started...");
-		HashMap<String, String> map = managerService.getEventsBreackdown();
+		HashMap<String, Double> map = managerService.getEventsBreackdown(from, to);
+		return map;
+	}
+	
+	@GetMapping("/bonus-balance")
+	public HashMap<String, Integer> getBonusBalance(
+			@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") Date from, 
+			@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") Date to){
+		log.info("Rest bonus-balance started...");
+		HashMap<String, Integer> map = managerService.getBonusBalance(from, to);
 		return map;
 	}
 }

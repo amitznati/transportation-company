@@ -1,6 +1,7 @@
 package com.trans.managerservice.services;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -85,31 +86,50 @@ public class ManagerService {
 		return points*100;
 	}
 	
-	public  HashMap<String, String> getEventsBreackdown(){
+	public HashMap<String, Integer> getBonusBalance(Date from, Date to){
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		DecimalFormat df2 = new DecimalFormat(".##");
+		Arrays.asList("TR","AC","TT","PT").forEach( v -> map.put(v, 0));
+		restTemplate.exchange(dbUrl + "events", 
+				HttpMethod.GET, null, 
+				new ParameterizedTypeReference<Resources<Event>>() {})
+				.getBody().getContent().stream()
+				.filter(e -> e.getCreatedAt().before(to) && e.getCreatedAt().after(from))
+				.map(e -> {
+					map.put(e.getType(),map.get(e.getType()) + calcPointsByType(e.getType()));
+					return e;
+				}).collect(Collectors.toList());
+		restTemplate.exchange(dbUrl + "trainings", 
+				HttpMethod.GET, null, 
+				new ParameterizedTypeReference<Resources<Training>>() {})
+				.getBody().getContent().stream()
+				.filter(t -> t.getStartDateTime().before(to) && t.getStartDateTime().after(from))
+				.map(t -> {
+						map.put("TR", map.get("TR") + 100);
+					return t;
+				})
+				.collect(Collectors.toList());
+		return map;
+	}
+	
+	public  HashMap<String, Double> getEventsBreackdown(Date from, Date to){
+		HashMap<String, Double> map = new HashMap<String, Double>();
+//		DecimalFormat df2 = new DecimalFormat(".##");
 		int sumAll = restTemplate.exchange(dbUrl + "events", 
 				HttpMethod.GET, null, 
 				new ParameterizedTypeReference<Resources<Event>>() {})
 				.getBody().getContent().stream()
+				.filter(e -> e.getCreatedAt().before(to) && e.getCreatedAt().after(from))
 				.map(e -> {
 					if(map.get(e.getType()) == null)
-						map.put(e.getType(), 0);
+						map.put(e.getType(), 0.00);
 					map.put(e.getType(),map.get(e.getType()) + 1);
 					return e;
 				}).collect(Collectors.toList()).size();
-
-		log.info("Map: "+map);
-		log.info("Sumall: " +sumAll);
-		HashMap<String, String> retMap = new HashMap<String, String>();
-		map.forEach( (k,v) -> {
-			retMap.put(k,df2.format(Double.valueOf(v*100)/sumAll));
-		});
-		return retMap;
+		map.replaceAll( (k,v) -> v * 100.00/sumAll);
+		return map;
 	}
 	
 	public  List<Training> getTraining(){
-		log.info("Adding Training");
 		List<Training> retVal = null;
 		try {
 			retVal = restTemplate.exchange(dbUrl + "trainings", 
